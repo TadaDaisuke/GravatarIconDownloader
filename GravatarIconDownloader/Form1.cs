@@ -33,10 +33,10 @@ namespace GravatarIconDownloader
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var webClient = new WebClient();
             foreach (var mailAddress in textBox1.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {
                 var hash = BitConverter.ToString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(mailAddress.Trim()))).ToLower().Replace("-", "");
-                var webClient = new WebClient();
                 webClient.DownloadFile(
                     string.Format("https://www.gravatar.com/avatar/{0}.png?s=200&d=identicon", hash),
                     string.Format(@"{0}\{1}.png", textBox2.Text, mailAddress.Trim()));
